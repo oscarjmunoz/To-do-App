@@ -1,7 +1,5 @@
+( () =>{ 
 const btn = document.querySelector("[data-form-btn]")
-
-
-
 
 const createtask = (evento) => {
     evento.preventDefault();
@@ -10,18 +8,40 @@ const createtask = (evento) => {
     const list = document.querySelector("[data-list]")
     const task = document.createElement("li");
     task.classList.add("card");
-    input.value = "";
-    const content = `<div>
-    <i class="far fa-check-square icon"></i>
-    <span class="task">${value}</span>
-    </div>
-    <i class="fas fa-trash-alt trashIcon icon"></i>`;
-    task.innerHTML = content ; 
-        console.log(content)
+    input.value = '';
+    //backstiks
     
-        list.appendChild(task)
+    const taskContent = document.createElement("div")
+    taskContent.appendChild(checkComplete());
+    const titleTask = document.createElement("span")
+    titleTask.classList.add("task");
+    titleTask.innerText = value;
+    taskContent.appendChild(titleTask);
+
+    const content = `<i class="fas fa-trash-alt trashIcon icon"></i>`;
+    //task.innerHTML = content ; 
+    task.appendChild(taskContent);
+    list.appendChild(task);
+        
 };
-console.log(btn)
 
 //arrow function-funcion flecha o funciones anonimas
 btn.addEventListener("click", createtask)
+
+const checkComplete = () =>{
+    const i = document.createElement("i")
+    i.classList.add("far","fa-check-square","icon");
+    i.addEventListener("click", completeTask);
+
+    return i;
+};
+//Immediately Invoked fucntion expression - IIFE
+
+const completeTask = (event) => {
+    const element = event.target;
+    element.classList.toggle("fas");
+    element.classList.toggle("completeIcon");
+    element.classList.toggle("far");
+};
+}
+)();
